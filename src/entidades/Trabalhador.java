@@ -1,7 +1,7 @@
 package entidades;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 import java.util.List;
 
 import enums.NivelDoTrabalhador;
@@ -21,11 +21,12 @@ public class Trabalhador {
 	
 	public Trabalhador() {}
 	
-	public Trabalhador(String nome, NivelDoTrabalhador nivel, Double salarioBase) {
+	public Trabalhador(String nome, NivelDoTrabalhador nivel, Double salarioBase, Departamento departamento) {
 		
 		this.nome = nome;
 		this.nivel = nivel;
 		this.salarioBase = salarioBase;
+		this.departamento = departamento;
 		
 	}
 
@@ -35,6 +36,18 @@ public class Trabalhador {
 		return nome;
 	}
 	
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
+	public List<Contrato> getContratos() {
+		return contratos;
+	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -76,11 +89,18 @@ public class Trabalhador {
 		
 		double soma = salarioBase;
 		
-		for (Contrato i : contratos) {
+		Calendar cal = Calendar.getInstance();
+		
+		
+		for (Contrato c : contratos) {
 			
-			if(i.getData().getMonth() == mes && i.getData().getYear() == ano) {
-				
-				soma += (i.getQuantidadeHoras() * i.getValorPorHora());
+			cal.setTime(c.getData());
+			int c_ano = cal.get(Calendar.YEAR);
+			int c_mes = 1 + cal.get(Calendar.MONTH);
+			
+			if( c_mes == mes && c_ano == ano) {
+			
+				soma += c.valorTotal();
 			}		
 		}
 		

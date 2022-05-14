@@ -55,9 +55,9 @@ public class Contrato {
 	
 	// Métodos
 	
-	public Double valorTotal(Double valorPorHora, Integer quantidadeDeHoras) {
+	public Double valorTotal() {
 		
-		return valorPorHora * quantidadeDeHoras;
+		return valorPorHora * quantidadeHoras;
 		
 	}
 	
